@@ -1,4 +1,5 @@
 import React from 'react';
+import { InfoTooltip } from './InfoTooltip';
 
 interface SliderInputProps {
   label: string;
@@ -9,6 +10,7 @@ interface SliderInputProps {
   unit?: string;
   onChange: (value: number) => void;
   formatValue?: (value: number) => string;
+  tooltip?: string;
 }
 
 /**
@@ -24,6 +26,7 @@ export const SliderInput: React.FC<SliderInputProps> = ({
   unit = '',
   onChange,
   formatValue,
+  tooltip,
 }) => {
   const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(parseFloat(e.target.value));
@@ -35,12 +38,13 @@ export const SliderInput: React.FC<SliderInputProps> = ({
     onChange(clampedValue);
   };
 
-  const displayValue = formatValue ? formatValue(value) : value.toFixed(step < 1 ? 2 : 0);
-
   return (
     <div className="space-y-3">
       <div className="flex justify-between items-center">
-        <label className="text-sm font-medium text-gray-700">{label}</label>
+        <label className="text-sm font-medium text-gray-700 flex items-center">
+          {label}
+          {tooltip && <InfoTooltip content={tooltip} />}
+        </label>
         <div className="flex items-center gap-2">
           <input
             type="number"

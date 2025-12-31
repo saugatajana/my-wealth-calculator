@@ -19,6 +19,8 @@ export interface SIPInputs {
   annualReturn: number;
   durationYears: number;
   stepUpPercentage: number;
+  initialInvestment?: number; // Optional initial lump sum investment
+  inflationRate?: number; // Optional inflation rate for adjustment (default: 6%)
 }
 
 export interface YearlyData {
@@ -27,13 +29,16 @@ export interface YearlyData {
   returns: number;
   corpus: number;
   monthlySIP: number;
+  initialInvestmentGrown?: number; // Initial investment value after growth
 }
 
 export interface SIPResult {
   totalInvested: number;
+  initialInvestment: number;
   estimatedReturns: number;
   finalCorpus: number;
   inflationAdjustedValue: number;
+  inflationRate: number; // Store the inflation rate used for display
   yearlyData: YearlyData[];
 }
 
@@ -62,42 +67,33 @@ function calculateSIPMaturity(
 }
 
 /**
- * Calculate total invested amount for a period
- */
-function calculateTotalInvested(
-  monthlyInvestment: number,
-  months: number
-): number {
-  return monthlyInvestment * months;
-}
-
-/**
  * Calculate SIP with step-up
  * Each year, the monthly SIP amount increases by step-up percentage
  * 
  * Calculation approach:
+ * - Initial investment (if any) grows with compound interest over the entire duration
  * - For each year, previous corpus grows with compound interest
  * - New SIP contributions for that year are added
  * - Step-up is applied at the start of each new year
  */
 export function calculateSIP(inputs: SIPInputs): SIPResult {
-  const { monthlyInvestment, annualReturn, durationYears, stepUpPercentage } = inputs;
+  const { monthlyInvestment, annualReturn, durationYears, stepUpPercentage, initialInvestment = 0, inflationRate = 6 } = inputs;
   const monthlyRate = getMonthlyRate(annualReturn);
-  const inflationRate = 0.06; // 6% inflation
+  const inflationRateDecimal = inflationRate / 100; // Convert percentage to decimal
   
   const yearlyData: YearlyData[] = [];
-  let totalInvested = 0;
+  let totalSIPInvested = 0;
   let currentSIP = monthlyInvestment;
-  let previousCorpus = 0;
+  let previousCorpus = initialInvestment; // Start with initial investment
   
   // Calculate year by year
   for (let year = 1; year <= durationYears; year++) {
     const monthsInYear = 12;
-    const yearInvested = currentSIP * monthsInYear;
-    totalInvested += yearInvested;
+    const yearSIPInvested = currentSIP * monthsInYear;
+    totalSIPInvested += yearSIPInvested;
     
     // Calculate corpus at the end of this year
-    // Step 1: Previous corpus (if any) grows with compound interest for 12 months
+    // Step 1: Previous corpus (initial investment + previous SIP contributions) grows with compound interest for 12 months
     const previousCorpusWithReturns = previousCorpus * Math.pow(1 + monthlyRate, monthsInYear);
     
     // Step 2: Calculate maturity value of new SIP contributions for this year
@@ -107,6 +103,12 @@ export function calculateSIP(inputs: SIPInputs): SIPResult {
     // Step 3: Total corpus = previous corpus (grown) + new SIP contributions
     const corpus = previousCorpusWithReturns + newSIPMaturity;
     
+    // Calculate how much the initial investment has grown by this year
+    const monthsElapsed = year * 12;
+    const initialInvestmentGrown = initialInvestment * Math.pow(1 + monthlyRate, monthsElapsed);
+    
+    // Total invested includes initial investment + all SIP contributions
+    const totalInvested = initialInvestment + totalSIPInvested;
     const returns = corpus - totalInvested;
     
     yearlyData.push({
@@ -115,6 +117,7 @@ export function calculateSIP(inputs: SIPInputs): SIPResult {
       returns,
       corpus,
       monthlySIP: currentSIP,
+      initialInvestmentGrown: initialInvestment > 0 ? initialInvestmentGrown : undefined,
     });
     
     // Update for next year
@@ -125,18 +128,21 @@ export function calculateSIP(inputs: SIPInputs): SIPResult {
   
   const finalData = yearlyData[yearlyData.length - 1];
   const finalCorpus = finalData.corpus;
-  const estimatedReturns = finalData.returns;
+  const totalInvested = initialInvestment + totalSIPInvested;
+  const estimatedReturns = finalCorpus - totalInvested;
   
   // Calculate inflation-adjusted value
   // Future value adjusted for inflation: FV / (1 + inflation)^years
   // This shows the real purchasing power in today's terms
-  const inflationAdjustedValue = finalCorpus / Math.pow(1 + inflationRate, durationYears);
+  const inflationAdjustedValue = finalCorpus / Math.pow(1 + inflationRateDecimal, durationYears);
   
   return {
     totalInvested,
+    initialInvestment,
     estimatedReturns,
     finalCorpus,
     inflationAdjustedValue,
+    inflationRate,
     yearlyData,
   };
 }

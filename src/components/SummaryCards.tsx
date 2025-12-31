@@ -6,6 +6,7 @@ interface SummaryCardsProps {
   estimatedReturns: number;
   finalCorpus: number;
   inflationAdjustedValue: number;
+  inflationRate: number;
 }
 
 /**
@@ -17,58 +18,45 @@ export const SummaryCards: React.FC<SummaryCardsProps> = ({
   estimatedReturns,
   finalCorpus,
   inflationAdjustedValue,
+  inflationRate,
 }) => {
-  const returnPercentage = totalInvested > 0 
-    ? ((estimatedReturns / totalInvested) * 100).toFixed(1)
-    : '0.0';
-
-  const cards = [
-    {
-      title: 'Total Invested',
-      value: formatCurrency(totalInvested),
-      subtitle: formatNumber(totalInvested),
-      color: 'text-blue-600',
-      bgColor: 'bg-blue-50',
-      borderColor: 'border-blue-200',
-    },
-    {
-      title: 'Estimated Returns',
-      value: formatCurrency(estimatedReturns),
-      subtitle: `${returnPercentage}% returns`,
-      color: 'text-green-600',
-      bgColor: 'bg-green-50',
-      borderColor: 'border-green-200',
-    },
-    {
-      title: 'Final Corpus',
-      value: formatCurrency(finalCorpus),
-      subtitle: 'Maturity value',
-      color: 'text-purple-600',
-      bgColor: 'bg-purple-50',
-      borderColor: 'border-purple-200',
-    },
-    {
-      title: 'Inflation Adjusted',
-      value: formatCurrency(inflationAdjustedValue),
-      subtitle: 'Today\'s value (6% inflation)',
-      color: 'text-orange-600',
-      bgColor: 'bg-orange-50',
-      borderColor: 'border-orange-200',
-    },
-  ];
-
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-      {cards.map((card, index) => (
-        <div
-          key={index}
-          className={`card ${card.bgColor} ${card.borderColor} border-2`}
-        >
-          <h3 className="text-sm font-medium text-gray-600 mb-2">{card.title}</h3>
-          <p className={`text-2xl font-bold ${card.color} mb-1`}>{card.value}</p>
-          <p className="text-xs text-gray-500">{card.subtitle}</p>
+    <div className="grid grid-cols-1 gap-4">
+      {/* Total Invested and Estimated Returns - Same Row, Smaller Size */}
+      <div className="grid grid-cols-2 gap-3">
+        <div className="card bg-white border-2 border-gray-200">
+          <h3 className="text-xs font-medium text-gray-600 mb-1">Total Invested</h3>
+          <p className="text-lg font-bold text-gray-900 mb-0.5">
+            {formatCurrency(totalInvested)}
+          </p>
+          <p className="text-xs text-gray-500">{formatNumber(totalInvested)}</p>
         </div>
-      ))}
+        <div className="card bg-white border-2 border-gray-200">
+          <h3 className="text-xs font-medium text-gray-600 mb-1">Estimated Returns</h3>
+          <p className="text-lg font-bold text-gray-900 mb-0.5">
+            {formatCurrency(estimatedReturns)}
+          </p>
+          <p className="text-xs text-gray-500">{formatNumber(estimatedReturns)}</p>
+        </div>
+      </div>
+
+      {/* Final Corpus - Hero Card */}
+      <div className="card bg-gradient-to-br from-primary-600 to-primary-700 text-white border-2 border-primary-600 shadow-lg">
+        <h3 className="text-sm font-medium text-primary-100 mb-2">Final Corpus</h3>
+        <p className="text-4xl md:text-5xl font-bold text-white mb-1">
+          {formatCurrency(finalCorpus)}
+        </p>
+        <p className="text-sm text-primary-100">Maturity value</p>
+      </div>
+
+      {/* Inflation Adjusted - Full Width */}
+      <div className="card bg-white border-2 border-gray-200">
+        <h3 className="text-sm font-medium text-gray-600 mb-2">Inflation Adjusted</h3>
+        <p className="text-2xl font-bold text-gray-900 mb-1">
+          {formatCurrency(inflationAdjustedValue)}
+        </p>
+        <p className="text-xs text-gray-500">Today's value ({inflationRate}% inflation)</p>
+      </div>
     </div>
   );
 };
