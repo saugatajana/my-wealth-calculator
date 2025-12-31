@@ -55,18 +55,22 @@ export const SIPCalculator: React.FC = () => {
                 unit="₹"
                 onChange={setInitialInvestment}
                 formatValue={(val) => val.toLocaleString('en-IN')}
+                footer="selected"
+                selectedFooterFormat="compact"
                 tooltip="One-time lump sum investment at the start. This amount will grow with returns, and monthly SIP will be added on top of it."
               />
               
               <SliderInput
                 label="Monthly Investment"
                 value={monthlyInvestment}
-                min={500}
+                min={0}
                 max={1000000}
                 step={500}
                 unit="₹"
                 onChange={setMonthlyInvestment}
                 formatValue={(val) => val.toLocaleString('en-IN')}
+                footer="selected"
+                selectedFooterFormat="compact"
               />
               
               <SliderInput
