@@ -14,20 +14,24 @@ import { formatCurrency } from '../utils/sipCalculations';
 
 interface GrowthChartProps {
   yearlyData: YearlyData[];
+  startYear?: number;
 }
 
 /**
  * Growth Chart Component
  * Displays year-wise corpus growth using Recharts
  */
-export const GrowthChart: React.FC<GrowthChartProps> = ({ yearlyData }) => {
+export const GrowthChart: React.FC<GrowthChartProps> = ({ yearlyData, startYear = new Date().getFullYear() }) => {
+
   // Custom tooltip formatter
   const customTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
+      const yearIndex = payload[0].payload.year;
+      const calendarYear = startYear + (yearIndex - 1);
       return (
         <div className="bg-white p-4 border border-gray-200 rounded-lg shadow-lg">
           <p className="font-semibold text-gray-900 mb-2">
-            Year {payload[0].payload.year}
+            {calendarYear}
           </p>
           {payload.map((entry: any, index: number) => (
             <p key={index} className="text-sm" style={{ color: entry.color }}>
@@ -81,6 +85,7 @@ export const GrowthChart: React.FC<GrowthChartProps> = ({ yearlyData }) => {
             dataKey="year"
             stroke="#6b7280"
             style={{ fontSize: '12px' }}
+            tickFormatter={(val) => String(startYear + (Number(val) - 1))}
             label={{ value: 'Year', position: 'insideBottom', offset: -5 }}
           />
           <YAxis

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Disclaimer } from './Disclaimer';
 
 /**
  * Assumptions & Methodology Section
@@ -40,9 +41,7 @@ export const AssumptionsSection: React.FC = () => {
           <span>Inflation-adjusted value uses the inflation rate you specify</span>
         </li>
       </ul>
-      <p className="text-xs text-gray-600 italic border-t border-blue-200 pt-3">
-        Returns shown are illustrative and not guaranteed. Mutual fund investments are subject to market risk.
-      </p>
+      <Disclaimer className="text-xs text-gray-600 italic border-t border-blue-200 pt-3" />
     </div>
   );
 };

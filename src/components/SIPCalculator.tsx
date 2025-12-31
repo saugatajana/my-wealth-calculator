@@ -3,6 +3,7 @@ import { SliderInput } from './SliderInput';
 import { SummaryCards } from './SummaryCards';
 import { GrowthChart } from './GrowthChart';
 import { AssumptionsSection } from './AssumptionsSection';
+import { FooterLinks } from './FooterLinks';
 import { calculateSIP, SIPInputs } from '../utils/sipCalculations';
 
 /**
@@ -150,6 +151,10 @@ export const SIPCalculator: React.FC = () => {
 
       {/* Assumptions & Methodology Section */}
       <AssumptionsSection />
+
+      <div className="mt-6">
+        <FooterLinks />
+      </div>
     </div>
   );
 };
