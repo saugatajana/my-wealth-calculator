@@ -4,7 +4,9 @@ import { SummaryCards } from './SummaryCards';
 import { GrowthChart } from './GrowthChart';
 import { AssumptionsSection } from './AssumptionsSection';
 import { FooterLinks } from './FooterLinks';
+import { AdSlot } from './AdSlot';
 import { calculateSIP, SIPInputs } from '../utils/sipCalculations';
+import { adsenseAdSlotAfterChart, adsenseClient } from '../constants/siteConfig';
 
 /**
  * Main SIP Calculator Component
@@ -148,6 +150,15 @@ export const SIPCalculator: React.FC = () => {
       <div className="mb-8">
         <GrowthChart yearlyData={results.yearlyData} />
       </div>
+
+      {adsenseClient && adsenseAdSlotAfterChart ? (
+        <div className="mb-8">
+          <AdSlot
+            client={adsenseClient}
+            slot={adsenseAdSlotAfterChart}
+          />
+        </div>
+      ) : null}
 
       {/* Assumptions & Methodology Section */}
       <AssumptionsSection />
