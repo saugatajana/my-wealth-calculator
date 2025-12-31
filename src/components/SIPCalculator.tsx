@@ -41,10 +41,10 @@ export const SIPCalculator: React.FC = () => {
       </div>
 
       {/* Input Section and Summary Cards Side by Side */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8 items-stretch">
         {/* Investment Details - Left Side */}
-        <div className="lg:col-span-2">
-          <div className="card">
+        <div className="lg:col-span-2 h-full">
+          <div className="card h-full">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <SliderInput
                 label="Initial Investment (Optional)"
@@ -84,6 +84,7 @@ export const SIPCalculator: React.FC = () => {
                 tooltip="This is the expected annual return rate. It's an estimate and not guaranteed. Actual returns may vary based on market conditions."
                 compact={true}
                 showInput={false}
+                footer="none"
               />
               
               <SliderInput
@@ -96,6 +97,7 @@ export const SIPCalculator: React.FC = () => {
                 onChange={setDurationYears}
                 compact={true}
                 showInput={false}
+                footer="none"
               />
               
               <SliderInput
@@ -109,6 +111,7 @@ export const SIPCalculator: React.FC = () => {
                 tooltip="Increase your monthly SIP amount by this percentage every year. For example, 10% step-up means if you invest ₹10,000/month in year 1, you'll invest ₹11,000/month in year 2."
                 compact={true}
                 showInput={false}
+                footer="none"
               />
               
               <SliderInput
@@ -122,13 +125,14 @@ export const SIPCalculator: React.FC = () => {
                 tooltip="Expected annual inflation rate used to calculate the real purchasing power of your corpus. This helps you understand what your money will be worth in today's terms."
                 compact={true}
                 showInput={false}
+                footer="none"
               />
             </div>
           </div>
         </div>
 
         {/* Summary Cards - Right Side */}
-        <div className="lg:col-span-1">
+        <div className="lg:col-span-1 h-full">
           <SummaryCards
             totalInvested={results.totalInvested}
             estimatedReturns={results.estimatedReturns}
