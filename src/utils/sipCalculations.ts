@@ -77,7 +77,7 @@ function calculateSIPMaturity(
  * - Step-up is applied at the start of each new year
  */
 export function calculateSIP(inputs: SIPInputs): SIPResult {
-  const { monthlyInvestment, annualReturn, durationYears, stepUpPercentage, initialInvestment = 0, inflationRate = 6 } = inputs;
+  const { monthlyInvestment, annualReturn, durationYears, stepUpPercentage, initialInvestment = 0, inflationRate = 5 } = inputs;
   const monthlyRate = getMonthlyRate(annualReturn);
   const inflationRateDecimal = inflationRate / 100; // Convert percentage to decimal
   
@@ -148,17 +148,20 @@ export function calculateSIP(inputs: SIPInputs): SIPResult {
 }
 
 /**
- * Format currency in Indian Rupees format
+ * Format currency in Indian Rupees format with commas
  */
 export function formatCurrency(amount: number): string {
   if (amount >= 10000000) {
-    return `₹${(amount / 10000000).toFixed(2)} Cr`;
+    const crores = amount / 10000000;
+    return `₹${crores.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Cr`;
   } else if (amount >= 100000) {
-    return `₹${(amount / 100000).toFixed(2)} L`;
+    const lakhs = amount / 100000;
+    return `₹${lakhs.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} L`;
   } else if (amount >= 1000) {
-    return `₹${(amount / 1000).toFixed(2)} K`;
+    const thousands = amount / 1000;
+    return `₹${thousands.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} K`;
   }
-  return `₹${amount.toFixed(0)}`;
+  return `₹${amount.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`;
 }
 
 /**

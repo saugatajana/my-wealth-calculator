@@ -11,6 +11,8 @@ interface SliderInputProps {
   onChange: (value: number) => void;
   formatValue?: (value: number) => string;
   tooltip?: string;
+  compact?: boolean; // For smaller inputs (2-3 characters)
+  showInput?: boolean; // Show/hide the text input box
 }
 
 /**
@@ -27,6 +29,8 @@ export const SliderInput: React.FC<SliderInputProps> = ({
   onChange,
   formatValue,
   tooltip,
+  compact = false,
+  showInput = true,
 }) => {
   const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(parseFloat(e.target.value));
@@ -45,18 +49,26 @@ export const SliderInput: React.FC<SliderInputProps> = ({
           {label}
           {tooltip && <InfoTooltip content={tooltip} />}
         </label>
-        <div className="flex items-center gap-2">
-          <input
-            type="number"
-            value={value}
-            min={min}
-            max={max}
-            step={step}
-            onChange={handleInputChange}
-            className="w-24 px-3 py-1.5 text-sm font-semibold text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none"
-          />
-          {unit && <span className="text-sm font-medium text-gray-600">{unit}</span>}
-        </div>
+        {showInput && (
+          <div className="flex items-center gap-2">
+            <input
+              type="number"
+              value={value}
+              min={min}
+              max={max}
+              step={step}
+              onChange={handleInputChange}
+              className={compact 
+                ? "w-16 sm:w-20 px-2 py-1.5 text-sm font-semibold text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none"
+                : "w-28 sm:w-32 px-2.5 py-1.5 text-sm font-semibold text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none"
+              }
+            />
+            {unit && <span className="text-sm font-medium text-gray-600">{unit}</span>}
+          </div>
+        )}
+        {!showInput && unit && (
+          <span className="text-base font-semibold text-gray-900">{value} {unit}</span>
+        )}
       </div>
       <input
         type="range"

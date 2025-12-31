@@ -21,41 +21,41 @@ export const SummaryCards: React.FC<SummaryCardsProps> = ({
   inflationRate,
 }) => {
   return (
-    <div className="grid grid-cols-1 gap-4">
-      {/* Total Invested and Estimated Returns - Same Row, Smaller Size */}
-      <div className="grid grid-cols-2 gap-3">
-        <div className="card bg-white border-2 border-gray-200">
-          <h3 className="text-xs font-medium text-gray-600 mb-1">Total Invested</h3>
-          <p className="text-lg font-bold text-gray-900 mb-0.5">
-            {formatCurrency(totalInvested)}
-          </p>
-          <p className="text-xs text-gray-500">{formatNumber(totalInvested)}</p>
-        </div>
-        <div className="card bg-white border-2 border-gray-200">
-          <h3 className="text-xs font-medium text-gray-600 mb-1">Estimated Returns</h3>
-          <p className="text-lg font-bold text-gray-900 mb-0.5">
-            {formatCurrency(estimatedReturns)}
-          </p>
-          <p className="text-xs text-gray-500">{formatNumber(estimatedReturns)}</p>
-        </div>
-      </div>
-
+    <div className="grid grid-cols-1 gap-1.5 h-full">
       {/* Final Corpus - Hero Card */}
-      <div className="card bg-gradient-to-br from-primary-600 to-primary-700 text-white border-2 border-primary-600 shadow-lg">
-        <h3 className="text-sm font-medium text-primary-100 mb-2">Final Corpus</h3>
-        <p className="text-4xl md:text-5xl font-bold text-white mb-1">
-          {formatCurrency(finalCorpus)}
+      <div className="card bg-gradient-to-br from-green-600 to-green-700 text-white border-2 border-green-600 shadow-lg overflow-hidden p-2">
+        <h3 className="text-xs font-medium text-green-100 mb-0.5 leading-tight">Final Corpus</h3>
+        <p className="text-base sm:text-lg md:text-xl font-bold text-white mb-0 break-words overflow-wrap-anywhere min-w-0 leading-tight">
+          ₹{formatNumber(finalCorpus)}
         </p>
-        <p className="text-sm text-primary-100">Maturity value</p>
+        <p className="text-xs text-green-100 mt-0.5 leading-tight">{formatCurrency(finalCorpus)}</p>
       </div>
 
-      {/* Inflation Adjusted - Full Width */}
-      <div className="card bg-white border-2 border-gray-200">
-        <h3 className="text-sm font-medium text-gray-600 mb-2">Inflation Adjusted</h3>
-        <p className="text-2xl font-bold text-gray-900 mb-1">
-          {formatCurrency(inflationAdjustedValue)}
+      {/* Total Invested */}
+      <div className="card bg-white border-2 border-gray-200 overflow-hidden p-2">
+        <h3 className="text-xs font-medium text-gray-600 mb-0.5 leading-tight">Total Invested</h3>
+        <p className="text-xs sm:text-sm font-bold text-gray-900 mb-0 break-words overflow-wrap-anywhere min-w-0 leading-tight">
+          ₹{formatNumber(totalInvested)}
         </p>
-        <p className="text-xs text-gray-500">Today's value ({inflationRate}% inflation)</p>
+        <p className="text-xs text-gray-500 mt-0.5 leading-tight">{formatCurrency(totalInvested)}</p>
+      </div>
+
+      {/* Estimated Returns */}
+      <div className="card bg-white border-2 border-gray-200 overflow-hidden p-2">
+        <h3 className="text-xs font-medium text-gray-600 mb-0.5 leading-tight">Estimated Returns</h3>
+        <p className="text-xs sm:text-sm font-bold text-gray-900 mb-0 break-words overflow-wrap-anywhere min-w-0 leading-tight">
+          ₹{formatNumber(estimatedReturns)}
+        </p>
+        <p className="text-xs text-gray-500 mt-0.5 leading-tight">{formatCurrency(estimatedReturns)}</p>
+      </div>
+
+      {/* Inflation Adjusted */}
+      <div className="card bg-white border-2 border-gray-200 overflow-hidden p-2">
+        <h3 className="text-xs font-medium text-gray-600 mb-0.5 leading-tight">Inflation Adjusted</h3>
+        <p className="text-xs sm:text-sm font-bold text-gray-900 mb-0 break-words overflow-wrap-anywhere min-w-0 leading-tight">
+          ₹{formatNumber(inflationAdjustedValue)}
+        </p>
+        <p className="text-xs text-gray-500 mt-0.5 leading-tight">{formatCurrency(inflationAdjustedValue)} • ({inflationRate}%)</p>
       </div>
     </div>
   );

@@ -16,7 +16,7 @@ export const SIPCalculator: React.FC = () => {
   const [annualReturn, setAnnualReturn] = useState(12);
   const [durationYears, setDurationYears] = useState(10);
   const [stepUpPercentage, setStepUpPercentage] = useState(0);
-  const [inflationRate, setInflationRate] = useState(6);
+  const [inflationRate, setInflationRate] = useState(5);
 
   // Calculate SIP results whenever inputs change
   const results = useMemo(() => {
@@ -45,15 +45,12 @@ export const SIPCalculator: React.FC = () => {
         {/* Investment Details - Left Side */}
         <div className="lg:col-span-2">
           <div className="card">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">
-              Investment Details
-            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <SliderInput
                 label="Initial Investment (Optional)"
                 value={initialInvestment}
                 min={0}
-                max={10000000}
+                max={100000000}
                 step={10000}
                 unit="₹"
                 onChange={setInitialInvestment}
@@ -65,7 +62,7 @@ export const SIPCalculator: React.FC = () => {
                 label="Monthly Investment"
                 value={monthlyInvestment}
                 min={500}
-                max={100000}
+                max={1000000}
                 step={500}
                 unit="₹"
                 onChange={setMonthlyInvestment}
@@ -81,6 +78,8 @@ export const SIPCalculator: React.FC = () => {
                 unit="%"
                 onChange={setAnnualReturn}
                 tooltip="This is the expected annual return rate. It's an estimate and not guaranteed. Actual returns may vary based on market conditions."
+                compact={true}
+                showInput={false}
               />
               
               <SliderInput
@@ -91,6 +90,8 @@ export const SIPCalculator: React.FC = () => {
                 step={1}
                 unit="Years"
                 onChange={setDurationYears}
+                compact={true}
+                showInput={false}
               />
               
               <SliderInput
@@ -102,6 +103,8 @@ export const SIPCalculator: React.FC = () => {
                 unit="%"
                 onChange={setStepUpPercentage}
                 tooltip="Increase your monthly SIP amount by this percentage every year. For example, 10% step-up means if you invest ₹10,000/month in year 1, you'll invest ₹11,000/month in year 2."
+                compact={true}
+                showInput={false}
               />
               
               <SliderInput
@@ -113,6 +116,8 @@ export const SIPCalculator: React.FC = () => {
                 unit="%"
                 onChange={setInflationRate}
                 tooltip="Expected annual inflation rate used to calculate the real purchasing power of your corpus. This helps you understand what your money will be worth in today's terms."
+                compact={true}
+                showInput={false}
               />
             </div>
           </div>

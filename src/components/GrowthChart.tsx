@@ -40,16 +40,30 @@ export const GrowthChart: React.FC<GrowthChartProps> = ({ yearlyData }) => {
     return null;
   };
 
-  // Format Y-axis values
+  // Format Y-axis values - compact format to avoid disruption
   const formatYAxis = (value: number) => {
     if (value >= 10000000) {
-      return `₹${(value / 10000000).toFixed(1)}Cr`;
+      const crores = value / 10000000;
+      // Use very compact format: 1.4Cr or 3500Cr without ₹ to save space
+      if (crores >= 1000) {
+        return `${crores.toFixed(0)}Cr`;
+      } else if (crores >= 100) {
+        return `${crores.toFixed(0)}Cr`;
+      } else if (crores >= 10) {
+        return `${crores.toFixed(1)}Cr`;
+      } else {
+        return `${crores.toFixed(1)}Cr`;
+      }
     } else if (value >= 100000) {
-      return `₹${(value / 100000).toFixed(1)}L`;
+      const lakhs = value / 100000;
+      return lakhs >= 100
+        ? `${lakhs.toFixed(0)}L`
+        : `${lakhs.toFixed(1)}L`;
     } else if (value >= 1000) {
-      return `₹${(value / 1000).toFixed(0)}K`;
+      const thousands = value / 1000;
+      return `${thousands.toFixed(0)}K`;
     }
-    return `₹${value}`;
+    return `${value.toFixed(0)}`;
   };
 
   return (
@@ -71,8 +85,9 @@ export const GrowthChart: React.FC<GrowthChartProps> = ({ yearlyData }) => {
           />
           <YAxis
             stroke="#6b7280"
-            style={{ fontSize: '12px' }}
+            style={{ fontSize: '11px' }}
             tickFormatter={formatYAxis}
+            width={60}
             label={{ value: 'Amount (₹)', angle: -90, position: 'insideLeft' }}
           />
           <Tooltip content={customTooltip} />
