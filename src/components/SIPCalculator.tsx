@@ -15,7 +15,7 @@ export const SIPCalculator: React.FC = () => {
   const [monthlyInvestment, setMonthlyInvestment] = useState(10000);
   const [annualReturn, setAnnualReturn] = useState(12);
   const [durationYears, setDurationYears] = useState(10);
-  const [stepUpPercentage, setStepUpPercentage] = useState(0);
+  const [stepUpPercentage, setStepUpPercentage] = useState(5);
   const [inflationRate, setInflationRate] = useState(5);
 
   // Calculate SIP results whenever inputs change
