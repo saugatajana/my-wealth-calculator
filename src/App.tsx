@@ -1,5 +1,6 @@
 import React from 'react';
 import { SIPCalculator } from './components/SIPCalculator';
+import { LumpsumCalculator } from './components/LumpsumCalculator';
 import { PrivacyPolicy } from './components/PrivacyPolicy';
 import { TermsAndConditions } from './components/TermsAndConditions';
 import { DisclaimerPage } from './components/DisclaimerPage';
@@ -28,6 +29,7 @@ function App() {
   const path = hash.replace(/^#/, '');
   const pathname = window.location.pathname;
   const isSipCalculatorPath = pathname.startsWith('/sip-calculator');
+  const isLumpsumCalculatorPath = pathname.startsWith('/lumpsum-calculator');
 
   const content =
     path === '/privacy-policy'
@@ -36,9 +38,11 @@ function App() {
         ? <TermsAndConditions />
         : path === '/disclaimer'
           ? <DisclaimerPage />
-        : isSipCalculatorPath
-          ? <SIPCalculator />
-          : null;
+          : isSipCalculatorPath
+            ? <SIPCalculator />
+            : isLumpsumCalculatorPath
+              ? <LumpsumCalculator />
+              : null;
 
   React.useEffect(() => {
     if (content === null) {

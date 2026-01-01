@@ -1,81 +1,56 @@
-import React, { useState, useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { SliderInput } from './SliderInput';
 import { SummaryCards } from './SummaryCards';
 import { GrowthChart } from './GrowthChart';
 import { AssumptionsSection } from './AssumptionsSection';
 import { FooterLinks } from './FooterLinks';
 import { AdSlot } from './AdSlot';
-import { calculateSIP, SIPInputs } from '../utils/sipCalculations';
+import { calculateLumpsum, LumpsumInputs } from '../utils/lumpsumCalculations';
 import { adsenseAdSlotAfterChart, adsenseClient } from '../constants/siteConfig';
 
-/**
- * Main SIP Calculator Component
- * Handles all inputs and displays results
- */
-export const SIPCalculator: React.FC = () => {
-
-  const [initialInvestment, setInitialInvestment] = useState(0);
-  const [monthlyInvestment, setMonthlyInvestment] = useState(10000);
+export const LumpsumCalculator: React.FC = () => {
+  const [investmentAmount, setInvestmentAmount] = useState(100000);
   const [annualReturn, setAnnualReturn] = useState(12);
   const [durationYears, setDurationYears] = useState(10);
-  const [stepUpPercentage, setStepUpPercentage] = useState(5);
   const [inflationRate, setInflationRate] = useState(5);
 
-  // Calculate SIP results whenever inputs change
   const results = useMemo(() => {
-    const inputs: SIPInputs = {
-      monthlyInvestment,
+    const inputs: LumpsumInputs = {
+      investmentAmount,
       annualReturn,
       durationYears,
-      stepUpPercentage,
-      initialInvestment,
       inflationRate,
     };
-    return calculateSIP(inputs);
-  }, [monthlyInvestment, annualReturn, durationYears, stepUpPercentage, initialInvestment, inflationRate]);
+
+    return calculateLumpsum(inputs);
+  }, [investmentAmount, annualReturn, durationYears, inflationRate]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Header */}
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold text-gray-900 mb-3">
-          SIP Calculator
+          Lumpsum Calculator
         </h1>
       </div>
 
-      {/* Input Section and Summary Cards Side by Side */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8 items-stretch">
-        {/* Investment Details - Left Side */}
         <div className="lg:col-span-2 h-full">
           <div className="card h-full">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <SliderInput
-                label="Initial Investment (Optional)"
-                value={initialInvestment}
+                label="Investment Amount"
+                value={investmentAmount}
                 min={0}
                 max={100000000}
                 step={10000}
                 unit="₹"
-                onChange={setInitialInvestment}
+                onChange={setInvestmentAmount}
                 formatValue={(val) => val.toLocaleString('en-IN')}
                 footer="selected"
                 selectedFooterFormat="compact"
-                tooltip="One-time lump sum investment at the start. This amount will grow with returns, and monthly SIP will be added on top of it."
+                tooltip="One-time lump sum investment at the start. This amount grows with compounding over the investment duration."
               />
-              
-              <SliderInput
-                label="Monthly Investment"
-                value={monthlyInvestment}
-                min={0}
-                max={1000000}
-                step={500}
-                unit="₹"
-                onChange={setMonthlyInvestment}
-                formatValue={(val) => val.toLocaleString('en-IN')}
-                footer="selected"
-                selectedFooterFormat="compact"
-              />
-              
+
               <SliderInput
                 label="Expected Annual Return"
                 value={annualReturn}
@@ -89,7 +64,7 @@ export const SIPCalculator: React.FC = () => {
                 showInput={false}
                 footer="none"
               />
-              
+
               <SliderInput
                 label="Investment Duration"
                 value={durationYears}
@@ -102,21 +77,7 @@ export const SIPCalculator: React.FC = () => {
                 showInput={false}
                 footer="none"
               />
-              
-              <SliderInput
-                label="Step-up SIP (Yearly Increase)"
-                value={stepUpPercentage}
-                min={0}
-                max={20}
-                step={1}
-                unit="%"
-                onChange={setStepUpPercentage}
-                tooltip="Increase your monthly SIP amount by this percentage every year. For example, 10% step-up means if you invest ₹10,000/month in year 1, you'll invest ₹11,000/month in year 2."
-                compact={true}
-                showInput={false}
-                footer="none"
-              />
-              
+
               <SliderInput
                 label="Inflation Rate"
                 value={inflationRate}
@@ -134,7 +95,6 @@ export const SIPCalculator: React.FC = () => {
           </div>
         </div>
 
-        {/* Summary Cards - Right Side */}
         <div className="lg:col-span-1 h-full">
           <SummaryCards
             totalInvested={results.totalInvested}
@@ -146,7 +106,6 @@ export const SIPCalculator: React.FC = () => {
         </div>
       </div>
 
-      {/* Growth Chart */}
       <div className="mb-8">
         <GrowthChart yearlyData={results.yearlyData} />
       </div>
@@ -160,8 +119,7 @@ export const SIPCalculator: React.FC = () => {
         </div>
       ) : null}
 
-      {/* Assumptions & Methodology Section */}
-      <AssumptionsSection />
+      <AssumptionsSection mode="lumpsum" />
 
       <div className="mt-6">
         <FooterLinks />
@@ -169,4 +127,3 @@ export const SIPCalculator: React.FC = () => {
     </div>
   );
 };
-
