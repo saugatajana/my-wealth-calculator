@@ -2,7 +2,7 @@ import React from 'react';
 import { Disclaimer } from './Disclaimer';
 
 type AssumptionsSectionProps = {
-  mode?: 'sip' | 'lumpsum';
+  mode?: 'sip' | 'lumpsum' | 'fire';
 };
 
 /**
@@ -41,6 +41,25 @@ export const AssumptionsSection: React.FC<AssumptionsSectionProps> = ({ mode = '
             <li className="flex items-start">
               <span className="text-primary-600 mr-2">•</span>
               <span>Inflation-adjusted value uses the inflation rate you specify</span>
+            </li>
+          </>
+        ) : mode === 'fire' ? (
+          <>
+            <li className="flex items-start">
+              <span className="text-primary-600 mr-2">•</span>
+              <span>We estimate your expenses at retirement by inflating your current expenses using the inflation rate</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-primary-600 mr-2">•</span>
+              <span>FIRE target corpus is calculated as: annual expenses at retirement ÷ withdrawal rate</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-primary-600 mr-2">•</span>
+              <span>Your current corpus and monthly investments are compounded monthly using the expected annual return (not guaranteed)</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-primary-600 mr-2">•</span>
+              <span>Required monthly investment is an estimate to reach the FIRE target by your retirement age</span>
             </li>
           </>
         ) : (

@@ -1,6 +1,7 @@
 import React from 'react';
 import { SIPCalculator } from './components/SIPCalculator';
 import { LumpsumCalculator } from './components/LumpsumCalculator';
+import { FIRECalculator } from './components/FIRECalculator';
 import { PrivacyPolicy } from './components/PrivacyPolicy';
 import { TermsAndConditions } from './components/TermsAndConditions';
 import { DisclaimerPage } from './components/DisclaimerPage';
@@ -30,6 +31,7 @@ function App() {
   const pathname = window.location.pathname;
   const isSipCalculatorPath = pathname.startsWith('/sip-calculator');
   const isLumpsumCalculatorPath = pathname.startsWith('/lumpsum-calculator');
+  const isFireCalculatorPath = pathname.startsWith('/fire-calculator');
 
   const content =
     path === '/privacy-policy'
@@ -42,7 +44,9 @@ function App() {
             ? <SIPCalculator />
             : isLumpsumCalculatorPath
               ? <LumpsumCalculator />
-              : null;
+              : isFireCalculatorPath
+                ? <FIRECalculator />
+                : null;
 
   React.useEffect(() => {
     if (content === null) {
