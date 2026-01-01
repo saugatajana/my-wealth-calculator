@@ -1,4 +1,5 @@
 import React from 'react';
+import { CalculatorNav } from './components/CalculatorNav';
 import { SIPCalculator } from './components/SIPCalculator';
 import { LumpsumCalculator } from './components/LumpsumCalculator';
 import { FIRECalculator } from './components/FIRECalculator';
@@ -56,6 +57,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <CalculatorNav />
       {content}
     </div>
   );
