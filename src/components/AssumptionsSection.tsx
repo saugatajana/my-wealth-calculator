@@ -2,7 +2,7 @@ import React from 'react';
 import { Disclaimer } from './Disclaimer';
 
 type AssumptionsSectionProps = {
-  mode?: 'sip' | 'lumpsum' | 'fire';
+  mode?: 'sip' | 'lumpsum' | 'fire' | 'swp';
 };
 
 /**
@@ -60,6 +60,29 @@ export const AssumptionsSection: React.FC<AssumptionsSectionProps> = ({ mode = '
             <li className="flex items-start">
               <span className="text-primary-600 mr-2">•</span>
               <span>Required monthly investment is an estimate to reach the FIRE target by your retirement age</span>
+            </li>
+          </>
+        ) : mode === 'swp' ? (
+          <>
+            <li className="flex items-start">
+              <span className="text-primary-600 mr-2">•</span>
+              <span>Your starting corpus is reduced by the withdrawal amount at the beginning of each month</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-primary-600 mr-2">•</span>
+              <span>The remaining corpus is compounded monthly using the expected annual return (not guaranteed)</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-primary-600 mr-2">•</span>
+              <span>Withdrawal step-up (if any) is applied once every year</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-primary-600 mr-2">•</span>
+              <span>Total withdrawn is the sum of all monthly withdrawals until the end of duration (or until corpus is depleted)</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-primary-600 mr-2">•</span>
+              <span>Estimated returns are computed as: remaining corpus − (initial corpus − total withdrawn)</span>
             </li>
           </>
         ) : (

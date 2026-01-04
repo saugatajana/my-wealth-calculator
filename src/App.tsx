@@ -3,6 +3,7 @@ import { CalculatorNav } from './components/CalculatorNav';
 import { SIPCalculator } from './components/SIPCalculator';
 import { LumpsumCalculator } from './components/LumpsumCalculator';
 import { FIRECalculator } from './components/FIRECalculator';
+import { SWPCalculator } from './components/SWPCalculator';
 import { PrivacyPolicy } from './components/PrivacyPolicy';
 import { TermsAndConditions } from './components/TermsAndConditions';
 import { DisclaimerPage } from './components/DisclaimerPage';
@@ -33,6 +34,7 @@ function App() {
   const isSipCalculatorPath = pathname.startsWith('/sip-calculator');
   const isLumpsumCalculatorPath = pathname.startsWith('/lumpsum-calculator');
   const isFireCalculatorPath = pathname.startsWith('/fire-calculator');
+  const isSwpCalculatorPath = pathname.startsWith('/swp-calculator');
 
   const content =
     path === '/privacy-policy'
@@ -47,6 +49,8 @@ function App() {
               ? <LumpsumCalculator />
               : isFireCalculatorPath
                 ? <FIRECalculator />
+                : isSwpCalculatorPath
+                  ? <SWPCalculator />
                 : null;
 
   React.useEffect(() => {

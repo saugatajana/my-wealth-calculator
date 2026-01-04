@@ -10,6 +10,7 @@ const links: NavLink[] = [
   { label: 'SIP Calculator', href: '/sip-calculator/', startsWith: '/sip-calculator' },
   { label: 'Lumpsum Calculator', href: '/lumpsum-calculator/', startsWith: '/lumpsum-calculator' },
   { label: 'FIRE Calculator', href: '/fire-calculator/', startsWith: '/fire-calculator' },
+  { label: 'SWP Calculator', href: '/swp-calculator/', startsWith: '/swp-calculator' },
 ];
 
 export const CalculatorNav: React.FC = () => {

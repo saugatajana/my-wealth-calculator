@@ -15,13 +15,20 @@ import { formatCurrency } from '../utils/sipCalculations';
 interface GrowthChartProps {
   yearlyData: YearlyData[];
   startYear?: number;
+  investedLabel?: string;
+  corpusLabel?: string;
 }
 
 /**
  * Growth Chart Component
  * Displays year-wise corpus growth using Recharts
  */
-export const GrowthChart: React.FC<GrowthChartProps> = ({ yearlyData, startYear = new Date().getFullYear() }) => {
+export const GrowthChart: React.FC<GrowthChartProps> = ({
+  yearlyData,
+  startYear = new Date().getFullYear(),
+  investedLabel = 'Total Invested',
+  corpusLabel = 'Final Corpus',
+}) => {
 
   // Custom tooltip formatter
   const customTooltip = ({ active, payload }: any) => {
@@ -86,6 +93,9 @@ export const GrowthChart: React.FC<GrowthChartProps> = ({ yearlyData, startYear 
             stroke="#6b7280"
             style={{ fontSize: '12px' }}
             tickFormatter={(val) => String(startYear + (Number(val) - 1))}
+            domain={[1, yearlyData.length]}
+            tickCount={Math.min(6, yearlyData.length)}
+            allowDecimals={false}
             label={{ value: 'Year', position: 'insideBottom', offset: -5 }}
           />
           <YAxis
@@ -105,7 +115,7 @@ export const GrowthChart: React.FC<GrowthChartProps> = ({ yearlyData, startYear 
             dataKey="invested"
             stroke="#3b82f6"
             strokeWidth={2}
-            name="Total Invested"
+            name={investedLabel}
             dot={{ r: 4 }}
             activeDot={{ r: 6 }}
           />
@@ -114,7 +124,7 @@ export const GrowthChart: React.FC<GrowthChartProps> = ({ yearlyData, startYear 
             dataKey="corpus"
             stroke="#10b981"
             strokeWidth={3}
-            name="Final Corpus"
+            name={corpusLabel}
             dot={{ r: 4 }}
             activeDot={{ r: 6 }}
           />
