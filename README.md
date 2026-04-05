@@ -120,6 +120,10 @@ cp .env.example .env
 
 - `VITE_ADSENSE_CLIENT`: your AdSense publisher id (example: `ca-pub-1234567890123456`)
 - `VITE_ADSENSE_AD_SLOT_AFTER_CHART`: ad slot id to render below charts
+- `VITE_ADSENSE_AD_SLOT_LEFT_RAIL` (optional): left side rail ad slot (desktop)
+- `VITE_ADSENSE_AD_SLOT_RIGHT_RAIL` (optional): right side rail ad slot (desktop)
+
+If left/right rail slots are not set, the app falls back to `VITE_ADSENSE_AD_SLOT_AFTER_CHART`.
 
 3. Restart dev server after changing env vars:
 
