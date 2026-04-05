@@ -12,6 +12,4 @@ export const adsenseAdSlotLeftRail = adsenseAdSlotLeftRailFromEnv || adsenseAdSl
 export const adsenseAdSlotRightRail = adsenseAdSlotRightRailFromEnv || adsenseAdSlotAfterChart;
 export const enablePageLevelAds =
   enablePageLevelAdsFromEnv !== 'false' && enablePageLevelAdsFromEnv !== '0';
-export const isAdsenseEnabled = Boolean(
-  adsenseClient && (adsenseAdSlotAfterChart || adsenseAdSlotLeftRail || adsenseAdSlotRightRail)
-);
+export const isAdsenseEnabled = Boolean(adsenseClient);
