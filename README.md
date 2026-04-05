@@ -108,6 +108,27 @@ For step-up SIP, the monthly investment increases annually by the specified perc
 - Google AdSense placeholder section
 - CTA section with affiliate links (Groww, Zerodha)
 
+## Enable Google AdSense
+
+1. Create a local env file from the example:
+
+```bash
+cp .env.example .env
+```
+
+2. Add your AdSense details in `.env`:
+
+- `VITE_ADSENSE_CLIENT`: your AdSense publisher id (example: `ca-pub-1234567890123456`)
+- `VITE_ADSENSE_AD_SLOT_AFTER_CHART`: ad slot id to render below charts
+
+3. Restart dev server after changing env vars:
+
+```bash
+npm run dev
+```
+
+4. For production, set the same variables in your hosting provider (for example Vercel project environment variables) and redeploy.
+
 ## License
 
 MIT

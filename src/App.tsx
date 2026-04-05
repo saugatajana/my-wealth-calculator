@@ -7,6 +7,7 @@ import { SWPCalculator } from './components/SWPCalculator';
 import { PrivacyPolicy } from './components/PrivacyPolicy';
 import { TermsAndConditions } from './components/TermsAndConditions';
 import { DisclaimerPage } from './components/DisclaimerPage';
+import { AdSenseScript } from './components/AdSenseScript';
 import './App.css';
 
 function App() {
@@ -61,6 +62,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <AdSenseScript />
       <CalculatorNav />
       {content}
     </div>
