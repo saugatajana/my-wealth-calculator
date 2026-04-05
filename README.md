@@ -122,6 +122,7 @@ cp .env.example .env
 - `VITE_ADSENSE_AD_SLOT_AFTER_CHART`: ad slot id to render below charts
 - `VITE_ADSENSE_AD_SLOT_LEFT_RAIL` (optional): left side rail ad slot (desktop)
 - `VITE_ADSENSE_AD_SLOT_RIGHT_RAIL` (optional): right side rail ad slot (desktop)
+- `VITE_ADSENSE_ENABLE_PAGE_LEVEL_ADS` (optional): set `true` to enable AdSense auto/page-level ads (default `true`)
 
 If left/right rail slots are not set, the app falls back to `VITE_ADSENSE_AD_SLOT_AFTER_CHART`.
 
