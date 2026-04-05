@@ -7,9 +7,7 @@ import { SWPCalculator } from './components/SWPCalculator';
 import { PrivacyPolicy } from './components/PrivacyPolicy';
 import { TermsAndConditions } from './components/TermsAndConditions';
 import { DisclaimerPage } from './components/DisclaimerPage';
-import { AdSlot } from './components/AdSlot';
 import { AdSenseScript } from './components/AdSenseScript';
-import { adsenseAdSlotLeftRail, adsenseAdSlotRightRail, adsenseClient } from './constants/siteConfig';
 import './App.css';
 
 function App() {
@@ -66,31 +64,7 @@ function App() {
     <div className="min-h-screen bg-gray-50">
       <AdSenseScript />
       <CalculatorNav />
-      <div className="mx-auto w-full max-w-[1800px] xl:px-3">
-        <div className="flex items-start gap-4">
-          {adsenseClient && adsenseAdSlotLeftRail ? (
-            <aside className="sticky top-24 hidden w-[160px] shrink-0 xl:block">
-              <AdSlot
-                client={adsenseClient}
-                slot={adsenseAdSlotLeftRail}
-                className="rounded-lg bg-white p-2 shadow-sm"
-              />
-            </aside>
-          ) : null}
-
-          <main className="min-w-0 flex-1">{content}</main>
-
-          {adsenseClient && adsenseAdSlotRightRail ? (
-            <aside className="sticky top-24 hidden w-[160px] shrink-0 xl:block">
-              <AdSlot
-                client={adsenseClient}
-                slot={adsenseAdSlotRightRail}
-                className="rounded-lg bg-white p-2 shadow-sm"
-              />
-            </aside>
-          ) : null}
-        </div>
-      </div>
+      {content}
     </div>
   );
 }

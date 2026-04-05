@@ -5,6 +5,7 @@ import { GrowthChart } from './GrowthChart';
 import { AssumptionsSection } from './AssumptionsSection';
 import { FooterLinks } from './FooterLinks';
 import { AdSlot } from './AdSlot';
+import { CalculatorSideAdLayout } from './CalculatorSideAdLayout';
 import { calculateSIP, SIPInputs } from '../utils/sipCalculations';
 import { adsenseAdSlotAfterChart, adsenseClient } from '../constants/siteConfig';
 
@@ -35,13 +36,14 @@ export const SIPCalculator: React.FC = () => {
   }, [monthlyInvestment, annualReturn, durationYears, stepUpPercentage, initialInvestment, inflationRate]);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Header */}
-      <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold text-gray-900 mb-3">
-          SIP Calculator
-        </h1>
-      </div>
+    <CalculatorSideAdLayout>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-gray-900 mb-3">
+            SIP Calculator
+          </h1>
+        </div>
 
       {/* Input Section and Summary Cards Side by Side */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8 items-stretch">
@@ -163,10 +165,11 @@ export const SIPCalculator: React.FC = () => {
       {/* Assumptions & Methodology Section */}
       <AssumptionsSection />
 
-      <div className="mt-6">
-        <FooterLinks />
+        <div className="mt-6">
+          <FooterLinks />
+        </div>
       </div>
-    </div>
+    </CalculatorSideAdLayout>
   );
 };
 

@@ -4,6 +4,7 @@ import { GrowthChart } from './GrowthChart';
 import { AssumptionsSection } from './AssumptionsSection';
 import { FooterLinks } from './FooterLinks';
 import { AdSlot } from './AdSlot';
+import { CalculatorSideAdLayout } from './CalculatorSideAdLayout';
 import { adsenseAdSlotAfterChart, adsenseClient } from '../constants/siteConfig';
 import { calculateFIRE, FIREInputs } from '../utils/fireCalculations';
 import { FIRESummaryCards } from './FIRESummaryCards';
@@ -43,12 +44,13 @@ export const FIRECalculator: React.FC = () => {
   ]);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold text-gray-900 mb-3">
-          FIRE Calculator
-        </h1>
-      </div>
+    <CalculatorSideAdLayout>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-gray-900 mb-3">
+            FIRE Calculator
+          </h1>
+        </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8 items-stretch">
         <div className="lg:col-span-2 h-full">
@@ -189,9 +191,10 @@ export const FIRECalculator: React.FC = () => {
 
       <AssumptionsSection mode="fire" />
 
-      <div className="mt-6">
-        <FooterLinks />
+        <div className="mt-6">
+          <FooterLinks />
+        </div>
       </div>
-    </div>
+    </CalculatorSideAdLayout>
   );
 };
